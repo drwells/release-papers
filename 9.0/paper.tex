@@ -217,31 +217,28 @@ are mainly used in Boundary Element Methods.
   updates to step-37. In addition, the separate code
   gallery of \dealii has gained a number of new entries.
 
-\item Improved support for user-defined run-time parameters: a new \texttt{ParameterAcceptor}
-  class has been added to the library. The class is intended to be used as a
+\item Improved support for user-defined run-time parameters: a new class for
+  handling parameters, \texttt{ParameterAcceptor}, has been added to the
+  library. The class is intended to be used as a
   base for any class that wants to handle parameters using the
   \texttt{ParameterHandler} class. If you derive all your classes from
   \texttt{ParameterAcceptor}, and declare your parameters either with
   \texttt{parse/declare\_parameters} methods or via the
   \texttt{ParameterAcceptor::add\_parameter} method, then both the
-  declaration and the
-  parsing of parameter files are automatically managed by
+  declaration and the parsing of parameter files are automatically managed by
   \texttt{ParameterAcceptor::initialize}, greatly simplifying
   dealing with parameters in user codes.
 
-\item New caching mechanism for expensive grid computations: we introduced a new
-  class \texttt{GridTools::Cache} that caches computationally intensive
-  information about a \texttt{Triangulation}.
-
-This class allows the user to query some of the data structures constructed
-using functions in the \texttt{GridTools} namespace. This data is then
-computed only once, and
-then cached inside this class for faster access whenever the triangulation has
-not changed. The cache is marked for update by the \texttt{Triangulation} itself
-using signals.
-
-Some of the methods in \texttt{GridTools} already use this cache to
-speed up repeated calls to the same expensive methods.
+\item New caching mechanism for expensive grid computations: the new
+  class \texttt{GridTools::Cache} stores computationally intensive information
+  about a \texttt{Triangulation}, such as looking up a cell for a given vertex.
+  This class allows the user to query some of the data structures constructed
+  using functions in the \texttt{GridTools} namespace. This data is then computed
+  only once, and then cached inside this class for faster access whenever the
+  triangulation has not changed. The cache is marked for update by the
+  \texttt{Triangulation} itself using signals.
+  Many of the functions in \texttt{GridTools} now use this cache to
+  speed up repeated calls to the same expensive methods.
 \item A new \texttt{MeshWorker::mesh\_loop} function has been added that
   performs the same tasks of the \texttt{MeshWorker::loop} function without
   forcing the users to adhere to a specific interface.
